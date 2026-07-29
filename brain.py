@@ -12,7 +12,7 @@ class Brain:
         }
 
         data = {
-            "model": "deepseek/deepseek-chat-v3.1:free",
+            "model": "qwen/qwen3-30b-a3b:free",
             "messages": [
                 {
                     "role": "system",
