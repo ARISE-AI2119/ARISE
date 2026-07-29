@@ -1,0 +1,2 @@
+DEFAULT_NAME = "ARISE"
+MODEL_NAME = "qwen2.5:1.5b"
