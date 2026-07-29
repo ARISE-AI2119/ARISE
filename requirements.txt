@@ -1,5 +1,3 @@
 Flask
 ollama
-git add requirements.txt
-git commit -m "Update requirements for Render deployment"
-git push
+gunicorn
