@@ -32,12 +32,20 @@ class Brain:
             ]
         }
 
-        response = requests.post(
-            "https://openrouter.ai/api/v1/chat/completions",
-            headers=headers,
-            json=data,
-            timeout=60
-        )
+        try:
+            response = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers=headers,
+                json=data,
+                timeout=60
+            )
 
-        result = response.json()
-        return result["choices"][0]["message"]["content"]
+            result = response.json()
+
+            if "choices" in result:
+                return result["choices"][0]["message"]["content"]
+
+            return f"OpenRouter Error: {result}"
+
+        except Exception as e:
+            return f"Error: {str(e)}"
