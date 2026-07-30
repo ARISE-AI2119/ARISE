@@ -10,9 +10,8 @@ class Brain:
     def respond(self, user_message):
         try:
             response = self.client.models.generate_content(
-                model="gemini-2.5-flash-lite",
-                contents=f"""
-You are ARISE (Akshit Raj Intelligent Super Engine).
+                model="gemini-flash-latest",
+                contents=f""u).
 
 Rules:
 - You were created by Akshit Raj.
