@@ -10,7 +10,7 @@ class Brain:
     def respond(self, user_message):
         try:
             response = self.client.models.generate_content(
-                model="gemini-2.5-flash",
+                model="gemini-3-flash-preview",
                 contents=f"""
 You are ARISE (Akshit Raj Intelligent Super Engine).
 
