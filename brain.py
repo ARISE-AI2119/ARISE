@@ -1,51 +1,34 @@
 import os
-import requests
+from google import genai
 
 class Brain:
     def __init__(self):
-        self.api_key = os.environ.get("OPENROUTER_API_KEY")
+        self.client = genai.Client(
+            api_key=os.environ.get("GEMINI_API_KEY")
+        )
 
     def respond(self, user_message):
-        headers = {
-            "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json"
-        }
-
-        data = {
-            "model": "qwen/qwen3-30b-a3b:free",
-            "messages": [
-                {
-                    "role": "system",
-                    "content": (
-                        "You are ARISE (Akshit Raj Intelligent Super Engine). "
-                        "You were created by Akshit Raj. "
-                        "Never say you are ChatGPT, DeepSeek, OpenAI or any other model. "
-                        "If asked who created you, always answer: "
-                        "'I was created by Akshit Raj.' "
-                        "Be friendly, intelligent and helpful."
-                    )
-                },
-                {
-                    "role": "user",
-                    "content": user_message
-                }
-            ]
-        }
-
         try:
-            response = requests.post(
-                "https://openrouter.ai/api/v1/chat/completions",
-                headers=headers,
-                json=data,
-                timeout=60
+            response = self.client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=f"""
+You are ARISE (Akshit Raj Intelligent Super Engine).
+
+Rules:
+- You were created by Akshit Raj.
+- Never say you are ChatGPT.
+- Never say you are Gemini.
+- Never say you are Google AI.
+- If anyone asks who created you, answer:
+'I was created by Akshit Raj.'
+- Be intelligent, friendly and helpful.
+
+User:
+{user_message}
+"""
             )
 
-            result = response.json()
-
-            if "choices" in result:
-                return result["choices"][0]["message"]["content"]
-
-            return f"OpenRouter Error: {result}"
+            return response.text
 
         except Exception as e:
-            return f"Error: {str(e)}"
+            return f"Error: {e}"
