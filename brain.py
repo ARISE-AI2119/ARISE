@@ -2,9 +2,10 @@ import os
 from google import genai
 
 class Brain:
-self.client = genai.Client(
-    api_key=os.environ.get("GEMINI_API_KEY")
-)
+    def __init__(self):
+        self.client = genai.Client(
+            api_key=os.environ.get("GEMINI_API_KEY")
+        )
 
     def respond(self, user_message):
         try:
