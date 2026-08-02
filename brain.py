@@ -2,10 +2,9 @@ import os
 from google import genai
 
 class Brain:
-    def __init__(self):
-        self.client = genai.Client(
-            api_key=os.environ.get("GEMINI_API_KEY")
-        )
+self.client = genai.Client(
+    api_key=os.environ.get("GEMINI_API_KEY")
+)
 
     def respond(self, user_message):
         try:
@@ -28,7 +27,14 @@ User:
 """
             )
 
-            return response.text
+            print(response)
+
+            if hasattr(response, "text") and response.text:
+                return response.text
+
+            return str(response)
 
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             return f"Error: {e}"
