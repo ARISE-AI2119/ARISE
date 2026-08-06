@@ -1,14 +1,22 @@
 import os
+from dotenv import load_dotenv
 from google import genai
+from image_engine import ImageEngine
+
+load_dotenv()
 
 class Brain:
     def __init__(self):
         self.client = genai.Client(
             api_key=os.environ.get("GEMINI_API_KEY")
         )
+        self.image_engine = ImageEngine()
 
     def respond(self, user_message):
+        user_lower = user_message.lower()
+
         try:
+            
             response = self.client.models.generate_content(
                 model="gemini-3-flash-preview",
                 contents=f"""

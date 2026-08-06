@@ -3,43 +3,244 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <title>ARISE AI</title>
+<title>ARISE OS</title>
 
-    <link rel="stylesheet" href="/static/style.css">
+<div id="ai-status">
+
+    🟢 STANDBY
+
+</div>
+
+<link
+rel="stylesheet"
+href="/static/style.css">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+rel="stylesheet">
 
 </head>
 
 <body>
 
-    <div class="container">
+<!-- Animated Background -->
 
-        <h1>🤖 ARISE AI</h1>
+<div id="background">
 
-        <p>Akshit Raj Intelligent Super Engine</p>
+<div class="gradient"></div>
 
-        <div id="chat-box"></div>
+<div class="stars"></div>
 
-        <div class="input-area">
+<div class="grid"></div>
 
-            <input
-                type="text"
-                id="user-input"
-                placeholder="Ask ARISE anything..."
-            >
+<div class="mouse-light"></div>
 
-            <button onclick="sendMessage()">
-                Send
-            </button>
+</div>
 
-        </div>
+<!-- AI Core -->
 
-    </div>
+<div class="ai-core">
 
-    <script src="/static/script.js"></script>
+<div class="ring ring1"></div>
+
+<div class="ring ring2"></div>
+
+<div class="ring ring3"></div>
+
+<div class="center-core">
+
+🤖
+
+</div>
+
+</div>
+
+<!-- Main Window -->
+
+<div class="window">
+
+<!-- Header -->
+
+<header>
+
+<div class="title">
+
+ARISE OS
+
+</div>
+
+<div class="subtitle">
+
+Akshit Raj Intelligent Super Engine
+
+</div>
+
+<div class="system-status">
+
+<div class="pill online">
+
+🟢 ONLINE
+
+</div>
+
+<div class="pill">
+
+🧠 MEMORY
+
+</div>
+
+<div class="pill">
+
+⚡ READY
+
+</div>
+
+<div class="pill">
+
+🌐 NETWORK
+
+</div>
+
+</div>
+
+</header>
+
+<!-- Chat -->
+
+<div id="chat-box">
+
+<div class="welcome">
+
+<h1>
+
+WELCOME TO ARISE
+
+</h1>
+
+<p>
+
+Artificial Intelligence Operating System
+
+</p>
+
+<div class="welcome-cards">
+
+<div class="card">
+
+🧠
+
+<h3>
+
+Memory
+
+</h3>
+
+</div>
+
+<div class="card">
+
+🌐
+
+<h3>
+
+Knowledge
+
+</h3>
+
+</div>
+
+<div class="card">
+
+⚡
+
+<h3>
+
+Speed
+
+</h3>
+
+</div>
+
+<div class="card">
+
+🎤
+
+<h3>
+
+Voice
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Bottom Console -->
+
+<div class="console">
+
+<textarea
+
+id="user-input"
+
+placeholder="Talk with ARISE..."
+
+rows="1"
+
+autocomplete="off"
+
+></textarea>
+
+<button
+
+id="voice-btn"
+
+title="🎤 Talk to ARISE"
+
+>
+
+🎤
+
+</button>
+
+<button
+
+id="attach-btn"
+
+title="Upload (Coming Soon)"
+
+>
+
+📎
+
+</button>
+
+<button
+
+id="send-btn"
+
+onclick="sendMessage()"
+
+>
+
+➜
+
+</button>
+
+</div>
+
+</div>
+
+<script src="/static/script.js"></script>
 
 </body>
 
