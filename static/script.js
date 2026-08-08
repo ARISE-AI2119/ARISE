@@ -147,7 +147,7 @@ function createBubble(type, text){
     scrollBottom();
 
     return bubble;
-    
+
 }
 
 /* ===========================
@@ -525,7 +525,7 @@ function speakResponse(text, button = null){
 
     if (!("speechSynthesis" in window)) {
 
-        console.log("Speech synthesis not supported.");
+        console.log("Speech Synthesis not supported.");
 
         if(button){
             button.innerHTML = "❌ Voice Unsupported";
@@ -535,15 +535,26 @@ function speakResponse(text, button = null){
         return;
     }
 
-    // Stop any previous speech
     speechSynthesis.cancel();
 
     const speech = new SpeechSynthesisUtterance(text);
 
-    speech.lang = "en-US";
-    speech.rate = 1;
-    speech.pitch = 1;
-    speech.volume = 1;
+    const voices = speechSynthesis.getVoices();
+
+    const ariseVoice = voices.find(
+        voice => voice.name === "Google UK English Male"
+    );
+
+    if(ariseVoice){
+        speech.voice = ariseVoice;
+        speech.lang = ariseVoice.lang;
+    } else {
+        speech.lang = "en-GB";
+    }
+
+    speech.rate = 0.90;
+    speech.pitch = 1.0;
+    speech.volume = 1.0;
 
     speech.onstart = () => {
 
@@ -565,7 +576,7 @@ function speakResponse(text, button = null){
 
     speech.onerror = (event) => {
 
-        console.log("Speech error:", event.error);
+        console.log("ARISE Voice Error:", event.error);
 
         if(button){
             button.innerHTML = "🎙 Speak";
