@@ -351,7 +351,47 @@ async function sendMessage(){
 
         );
 
-    }
+        const controls = document.createElement("div");
+
+controls.className = "message-controls";
+
+const copyButton = createCopyButton(data.reply);
+
+const speakButton = createSpeakButton(data.reply);
+
+controls.appendChild(copyButton);
+
+controls.appendChild(speakButton);
+
+aiBubble.appendChild(document.createElement("br"));
+
+aiBubble.appendChild(controls);
+
+function createSpeakButton(text){
+
+    const button = document.createElement("button");
+
+    button.className = "speak-btn";
+
+    button.innerHTML = "🎙 Speak";
+
+    button.onclick = () => {
+
+        speakResponse(text, button);
+
+    };
+
+    return button;
+
+}
+
+    
+
+}
+
+
+    
+    
 
     catch(error){
 
@@ -420,6 +460,109 @@ function typeWriter(
         scrollBottom();
 
     },15);
+
+}
+
+function createCopyButton(text){
+
+    const button = document.createElement("button");
+
+    button.className = "copy-btn";
+
+    button.innerHTML = "📋 Copy";
+
+    button.onclick = async () => {
+
+        try{
+
+            await navigator.clipboard.writeText(text);
+
+            button.innerHTML = "✅ Copied";
+
+            setTimeout(()=>{
+
+                button.innerHTML = "📋 Copy";
+
+            },2000);
+
+        }
+
+        catch{
+
+            button.innerHTML = "❌ Failed";
+
+            setTimeout(()=>{
+
+                button.innerHTML = "📋 Copy";
+
+            },2000);
+
+        }
+
+    };
+
+    return button;
+
+}
+
+/* ==========================================
+      ARISE Voice Output
+========================================== */
+
+function speakResponse(text, button = null){
+
+    if (!("speechSynthesis" in window)) {
+
+        console.log("Speech synthesis not supported.");
+
+        if(button){
+            button.innerHTML = "❌ Voice Unsupported";
+            button.disabled = false;
+        }
+
+        return;
+    }
+
+    // Stop any previous speech
+    speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(text);
+
+    speech.lang = "en-US";
+    speech.rate = 1;
+    speech.pitch = 1;
+    speech.volume = 1;
+
+    speech.onstart = () => {
+
+        if(button){
+            button.innerHTML = "🔊 Speaking...";
+            button.disabled = true;
+        }
+
+    };
+
+    speech.onend = () => {
+
+        if(button){
+            button.innerHTML = "🎙 Speak";
+            button.disabled = false;
+        }
+
+    };
+
+    speech.onerror = (event) => {
+
+        console.log("Speech error:", event.error);
+
+        if(button){
+            button.innerHTML = "🎙 Speak";
+            button.disabled = false;
+        }
+
+    };
+
+    speechSynthesis.speak(speech);
 
 }
 
@@ -1350,3 +1493,28 @@ else{
     voiceBtn.title = "Voice not supported";
 
 }
+/* ==========================================
+      Voice Controls
+========================================== */
+
+const pauseBtn = document.getElementById("pause-btn");
+const resumeBtn = document.getElementById("resume-btn");
+const stopBtn = document.getElementById("stop-btn");
+
+pauseBtn.onclick = () => {
+
+    speechSynthesis.pause();
+
+};
+
+resumeBtn.onclick = () => {
+
+    speechSynthesis.resume();
+
+};
+
+stopBtn.onclick = () => {
+
+    speechSynthesis.cancel();
+
+};
