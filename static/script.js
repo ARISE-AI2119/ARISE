@@ -119,23 +119,35 @@ function scrollBottom(){
 }
 
 /* ===========================
-     Create Bubble
+   Create Bubble
 =========================== */
 
-function createBubble(type,text){
+function createBubble(type, text){
 
-    const bubble=document.createElement("div");
+    const bubble = document.createElement("div");
 
-    bubble.className="message "+type;
+    bubble.className = "message " + type;
 
-    bubble.innerHTML=text;
+    bubble.innerHTML = text;
+
+    // Timestamp
+    const time = document.createElement("div");
+
+    time.className = "message-time";
+
+    time.innerText = new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+    bubble.appendChild(time);
 
     chatBox.appendChild(bubble);
 
     scrollBottom();
 
     return bubble;
-
+    
 }
 
 /* ===========================
